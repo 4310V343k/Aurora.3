@@ -46,9 +46,9 @@
 	load_method = SINGLE_CASING
 	handle_casings = DELETE_CASINGS
 
-	ammo_type = /obj/item/ammo_casing/musket
-
 	max_shells = 1
+
+	caliber = "musket"
 
 	slot_flags = SLOT_BACK
 
@@ -82,6 +82,9 @@
 /obj/item/gun/projectile/musket/attackby(obj/item/W as obj, mob/user as mob)
 	..()
 	if (istype(W, /obj/item/reagent_containers))
+		if(has_powder)
+			to_chat(user, "<span class='notice'>\The [src] is already full of gunpowder.</span>")
+			return
 		var/obj/item/reagent_containers/C = W
 		if(C.reagents.has_reagent(/datum/reagent/gunpowder, 5))
 			C.reagents.remove_reagent(/datum/reagent/gunpowder, 5)
@@ -94,7 +97,18 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "lead_ball"
 	caliber = "musket"
-	projectile_type = /obj/item/projectile/bullet/pistol/strong
+	projectile_type = /obj/item/projectile/bullet/musket
+
+/obj/item/projectile/bullet/musket
+	name = "lead ball"
+	damage = 60
+
+/obj/item/projectile/bullet/musket/on_impact(var/atom/A)
+	if(istype(A, /mob/living/simple_animal/hostile/geist))
+		var/mob/living/simple_animal/hostile/geist/W = A
+		W.has_regen = FALSE
+		W.visible_message("<span class='warning'>\The [W]'s flesh burns and sizzles at the impact of \the [src].</span>")
+	..()
 
 /obj/item/reagent_containers/powder_horn
 	name = "powder horn"

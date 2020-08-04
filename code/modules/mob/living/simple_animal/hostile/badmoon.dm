@@ -6,6 +6,7 @@
 	icon_state = "geist"
 	icon_living = "geist"
 	icon_dead = "geist_dead"
+	icon_rest = "geist_rest"
 	stop_automated_movement = TRUE
 	universal_speak = TRUE
 	universal_understand = TRUE
@@ -16,7 +17,7 @@
 
 	tameable = FALSE
 
-	speed = -4
+	speed = -2
 
 	response_help  = "pets"
 	response_disarm = "shoves"
@@ -26,12 +27,13 @@
 	harm_intent_damage = 0
 	melee_damage_lower = 45
 	melee_damage_upper = 45
-	mob_size = 25
+	mob_size = 50
 	environment_smash = 2
 	attacktext = "mauled"
 
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
+	sight = SEE_MOBS
 
 	butchering_products = list(/obj/item/stack/material/animalhide = 4)
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/adhomai
@@ -40,9 +42,12 @@
 	attack_sound = 'sound/effects/creatures/demon_attack.ogg'
 
 	pixel_x = -16
-	pixel_y = -16
+	pixel_y = 0
+
+	layer = 5
 
 	var/is_devouring = FALSE
+	var/has_regen = TRUE
 
 /mob/living/simple_animal/hostile/geist/examine(mob/user)
 	. = ..()
@@ -53,8 +58,13 @@
 
 /mob/living/simple_animal/hostile/geist/Life()
 	..()
-	if(prob(25))
-		adjustBruteLoss(-10) //it will slowly heal brute damage, making fire/laser a stronger option
+	if(has_regen)
+		if(health > maxHealth)
+			if(prob(25))
+				adjustBruteLoss(-25) //it will slowly heal brute damage, making fire/laser a stronger option
+				visible_message("<span class='warning'>\The [src]'s wounds regenerates quickly!</span>")
+
+	sight |= SEE_MOBS
 
 /mob/living/simple_animal/hostile/geist/verb/geist_devour(mob/living/target as mob in oview())
 	set category = "Geist"
@@ -120,10 +130,10 @@
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
-	speed = -4
+	speed = -2
 	maxHealth = 80
 	health = 80
-	mob_size = 4
+	mob_size = 10
 
 	pass_flags = PASSTABLE
 
