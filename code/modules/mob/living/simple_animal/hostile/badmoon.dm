@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/geist
 	name = "creature"
-	desc = ""
+	desc = "An unknown creature, something pulled straight from a nightmare."
 	speak_emote = list("roars")
 	icon = 'icons/obj/geist.dmi'
 	icon_state = "geist"
@@ -52,17 +52,15 @@
 /mob/living/simple_animal/hostile/geist/examine(mob/user)
 	. = ..()
 	if(istajara(user))
-		to_chat(user, ("A terrible monster, its description matches the tales about cavern geists."))
-	else
-		to_chat(user, ("An unknown creature, something pulled straight from a nightmare."))
+		to_chat(user, ("Its description matches the tales about cavern geists."))
 
 /mob/living/simple_animal/hostile/geist/Life()
 	..()
 	if(has_regen)
-		if(health > maxHealth)
+		if (getBruteLoss() > 0)
 			if(prob(25))
-				adjustBruteLoss(-25) //it will slowly heal brute damage, making fire/laser a stronger option
-				visible_message("<span class='warning'>\The [src]'s wounds regenerates quickly!</span>")
+				adjustBruteLoss(-25)
+				visible_message("<span class='danger'>\The [src]'s wounds regenerates quickly!</span>")
 
 	sight |= SEE_MOBS
 

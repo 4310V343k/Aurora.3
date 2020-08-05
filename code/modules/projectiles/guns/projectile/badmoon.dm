@@ -67,6 +67,7 @@
 
 /obj/item/gun/projectile/musket/special_check(mob/user)
 	if(!has_powder)
+		to_chat(user, "<span class='warning'>\The [src] has no gunpowder!</span>")
 		return 0
 
 	if(!wielded)
@@ -107,7 +108,7 @@
 	if(istype(A, /mob/living/simple_animal/hostile/geist))
 		var/mob/living/simple_animal/hostile/geist/W = A
 		W.has_regen = FALSE
-		W.visible_message("<span class='warning'>\The [W]'s flesh burns and sizzles at the impact of \the [src].</span>")
+		W.visible_message("<span class='danger'>\The [W]'s flesh burns and sizzles at the impact of \the [src].</span>")
 	..()
 
 /obj/item/reagent_containers/powder_horn
