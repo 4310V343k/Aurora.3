@@ -88,9 +88,12 @@
 			return
 		var/obj/item/reagent_containers/C = W
 		if(C.reagents.has_reagent(/datum/reagent/gunpowder, 5))
-			C.reagents.remove_reagent(/datum/reagent/gunpowder, 5)
-			has_powder = TRUE
-			to_chat(user, "<span class='notice'>You fill \the [src] with gunpowder.</span>")
+			if(do_after(user, 15))
+				if(has_powder)
+					return
+				C.reagents.remove_reagent(/datum/reagent/gunpowder, 5)
+				has_powder = TRUE
+				to_chat(user, "<span class='notice'>You fill \the [src] with gunpowder.</span>")
 
 /obj/item/ammo_casing/musket
 	name = "lead ball"

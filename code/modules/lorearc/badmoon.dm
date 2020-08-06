@@ -540,3 +540,9 @@
 /obj/item/material/sword/amohdan_sword/replica
 	name = "amohdan blade replica"
 	force_divisor = 0.1
+
+/obj/item/storage/box/dynamite/badmoon
+	starts_with = list(/obj/item/gun/projectile/musket = 1,
+						/obj/item/ammo_casing/musket = 3,
+						/obj/item/reagent_containers/powder_horn = 1,
+						/obj/item/cypher_part_two = 1)

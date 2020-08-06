@@ -22,8 +22,8 @@
 	response_help  = "pets"
 	response_disarm = "shoves"
 	response_harm   = "harmlessly punches"
-	maxHealth = 1200
-	health = 1200
+	maxHealth = 800
+	health = 800
 	harm_intent_damage = 0
 	melee_damage_lower = 45
 	melee_damage_upper = 45
@@ -59,7 +59,7 @@
 	if(has_regen)
 		if (getBruteLoss() > 0)
 			if(prob(25))
-				adjustBruteLoss(-25)
+				adjustBruteLoss(-50)
 				visible_message("<span class='danger'>\The [src]'s wounds regenerates quickly!</span>")
 
 	sight |= SEE_MOBS
@@ -90,7 +90,7 @@
 	src.visible_message("<span class='warning'>[src] begins ripping apart and feasting on [target]!</span>")
 	src.is_devouring = TRUE
 
-	target.adjustBruteLoss(35)
+	target.adjustBruteLoss(50)
 
 	if(!do_after(src,150))
 		to_chat(src, "<span class='warning'>You need to wait longer to devour \the [target]!</span>")
@@ -99,7 +99,7 @@
 
 	src.visible_message("<span class='warning'>[src] tears a chunk from \the [target]'s flesh!</span>")
 
-	target.adjustBruteLoss(35)
+	target.adjustBruteLoss(50)
 
 	if(!do_after(src,150))
 		to_chat(src, "<span class='warning'>You need to wait longer to devour \the [target]!</span>")
