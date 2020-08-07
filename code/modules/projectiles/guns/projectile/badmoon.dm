@@ -56,14 +56,23 @@
 
 	needspin = FALSE
 
+	w_class = ITEMSIZE_LARGE
+
 	origin_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 2)
 	fire_sound = 'sound/weapons/gunshot/gunshot_rifle.ogg'
 
 	fire_delay = 35
-	fire_sound = 'sound/effects/Explosion1.ogg'
+	fire_sound = 'sound/weapons/gunshot/musket.ogg'
 	recoil = 4
 
 	var/has_powder = FALSE
+
+/obj/item/gun/projectile/musket/update_icon()
+	if(wielded)
+		item_state = "musket-wielded"
+	else
+		item_state = "musket"
+	update_held_icon()
 
 /obj/item/gun/projectile/musket/special_check(mob/user)
 	if(!has_powder)
@@ -98,8 +107,8 @@
 /obj/item/ammo_casing/musket
 	name = "lead ball"
 	desc = "A lead ball."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "lead_ball"
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "musketball"
 	caliber = "musket"
 	projectile_type = /obj/item/projectile/bullet/musket
 
@@ -117,11 +126,10 @@
 /obj/item/reagent_containers/powder_horn
 	name = "powder horn"
 	desc = "An ivory container for gunpowder."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "powder_horn"
-	item_state = "powder_horn"
-	contained_sprite = TRUE
-	w_class = 2
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "powderhorn"
+	w_class = ITEMSIZE_SMALL
+	slot_flags = SLOT_BELT
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5)
 	volume = 30
