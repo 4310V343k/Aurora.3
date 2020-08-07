@@ -200,6 +200,12 @@ Class Procs:
 		else
 	return
 
+/obj/machinery/attack_generic(var/mob/user, var/damage)
+	if(damage >= 25)
+		visible_message("<span class='danger'>\The [user] smashes into the [src]!</span>")
+		user.do_attack_animation(src)
+		ex_act(1)
+
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
 	use_power = new_use_power

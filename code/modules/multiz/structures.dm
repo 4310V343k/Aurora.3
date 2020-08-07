@@ -129,6 +129,10 @@
 /mob/abstract/observer/may_climb_ladders(var/ladder)
 	return TRUE
 
+/obj/structure/ladder/attack_generic(var/mob/user, var/damage)
+	if (istype(user, /mob/living/simple_animal/hostile))
+		attack_hand(user)
+
 /obj/structure/ladder/proc/climbLadder(var/mob/M, var/target_ladder)
 	var/turf/T = get_turf(target_ladder)
 	var/turf/LAD = get_turf(src)

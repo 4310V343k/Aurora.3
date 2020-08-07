@@ -244,3 +244,9 @@ Note: This proc can be overwritten to allow for different types of auto-alignmen
 
 /obj/structure/table/do_simple_ranged_interaction(var/mob/user)
 	return
+
+/obj/structure/table/attack_generic(var/mob/user, var/damage)
+	if(damage >= 10)
+		visible_message("<span class='danger'>\The [user] smashes into the [src]!</span>")
+		user.do_attack_animation(src)
+		break_to_parts()
