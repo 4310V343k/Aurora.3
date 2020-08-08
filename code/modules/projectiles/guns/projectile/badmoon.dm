@@ -105,7 +105,7 @@
 				to_chat(user, "<span class='notice'>You fill \the [src] with gunpowder.</span>")
 
 /obj/item/ammo_casing/musket
-	name = "lead ball"
+	name = "musket ball"
 	desc = "A lead ball."
 	icon = 'icons/obj/badmoon.dmi'
 	icon_state = "musketball"
