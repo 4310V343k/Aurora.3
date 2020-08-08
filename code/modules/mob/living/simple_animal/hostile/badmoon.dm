@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/geist
 	name = "creature"
-	desc = "An unknown creature, something pulled straight from a nightmare."
+	desc = "A monstrous being, its titanic form casts a large shadow. A mix of malice and intelligent can be seen on its eyes."
 	speak_emote = list("roars")
 	icon = 'icons/obj/geist.dmi'
 	icon_state = "geist"
@@ -53,6 +53,11 @@
 	. = ..()
 	if(istajara(user))
 		to_chat(user, ("Its description matches the tales about cavern geists."))
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			if(H.religion == RELIGION_RASKARA)
+				to_chat(user, SPAN_CULT("Death walks among the living. Its champion is here."))
+
 
 /mob/living/simple_animal/hostile/geist/Life()
 	..()
