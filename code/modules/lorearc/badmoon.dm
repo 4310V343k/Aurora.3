@@ -546,3 +546,13 @@
 						/obj/item/ammo_casing/musket = 3,
 						/obj/item/reagent_containers/powder_horn = 1,
 						/obj/item/cypher_part_two = 1)
+
+/turf/simulated/mineral/icy
+	actual_icon = 'icons/obj/icy_wall.dmi'
+
+/obj/effect/bad_presence
+	name = "hauting presence"
+	desc = "An unknown interference, its eyes are following your movements."
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "shade"
+	anchored = 1
