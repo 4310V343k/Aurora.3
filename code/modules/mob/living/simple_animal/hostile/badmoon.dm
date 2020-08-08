@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/geist
 	name = "creature"
-	desc = "A monstrous being, its titanic form casts a large shadow. A mix of malice and intelligent can be seen on its eyes."
+	desc = "A monstrous being. A mixture of malice and intelligent can be seen in its eyes."
 	speak_emote = list("roars")
 	icon = 'icons/obj/geist.dmi'
 	icon_state = "geist"
