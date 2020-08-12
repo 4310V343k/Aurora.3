@@ -35,6 +35,13 @@
 	sharp = TRUE
 	edge = TRUE
 
+/obj/item/gun/projectile/revolver/detective/knife/knight
+	max_shells = 7
+	accuracy = 2
+	caliber = "454"
+	ammo_type = /obj/item/ammo_casing/a454
+	magazine_type = /obj/item/ammo_magazine/a454
+
 /obj/item/gun/projectile/musket
 	name = "adhomian musket"
 	desc = "A rustic firearm, used by Tajaran soldiers during the adhomian gunpowder age"
@@ -144,3 +151,4 @@
 	taste_description = "sour chalk"
 	taste_mult = 1.5
 	fallback_specific_heat = 0.018
+

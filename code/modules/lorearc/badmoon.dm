@@ -556,3 +556,150 @@
 	icon = 'icons/obj/badmoon.dmi'
 	icon_state = "shade"
 	anchored = 1
+
+/obj/item/clothing/suit/armor/cuirass/knight
+	desc = "A reinforced cuirass used by adhomian forces."
+	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
+	siemens_coefficient = 0
+
+/obj/item/clothing/suit/armor/cuirass/knight/master
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 10, bomb = 55, bio = 0, rad = 0)
+
+/obj/item/clothing/head/helmet/kettle/knight
+	desc = "A kettle helmet used by adhomian forces."
+	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
+	siemens_coefficient = 0
+
+/obj/item/clothing/head/helmet/kettle/knight/master
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 10, bomb = 55, bio = 0, rad = 0)
+
+/obj/item/clothing/shoes/tajara/knight
+	name = "armored boots"
+	desc = "Armored shoes used by Adhomian forces."
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "armored_legs"
+	item_state = "armored_legs"
+	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
+	siemens_coefficient = 0
+	contained_sprite = TRUE
+
+/obj/item/clothing/shoes/tajara/knight/master
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 10, bomb = 55, bio = 0, rad = 0)
+
+/obj/item/clothing/gloves/black/tajara/knight
+	name = "armored gloves"
+	desc = "Armored gloves used by Adhomian forces."
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "armored_arms"
+	item_state = "armored_arms"
+	siemens_coefficient = 0
+	contained_sprite = TRUE
+
+/obj/item/clothing/gloves/black/tajara/knight/master
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 10, bomb = 55, bio = 0, rad = 0)
+
+
+/obj/structure/throne
+	name = "mezuma imperial throne"
+	desc = "A large and fancy adhomian throne. It is rumored to have mystical powers."
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "throne"
+	anchored = TRUE
+	density = TRUE
+	opacity = TRUE
+	var/recharging = FALSE
+	var/triggered = FALSE
+	var/gave_prize = FALSE
+	var/list/possible_traps = list("fire", "dards", "shock", "gas", "radiation")
+
+/obj/structure/throne/ex_act(severity)
+	return
+
+/obj/structure/throne/attack_hand(var/mob/user)
+	visible_message("<span class='notice'>\The [user] starts to climb on \the [src].</span>")
+	if(do_after(user, 5))
+		visible_message("<span class='notice'>\The [user] sits on \the [src].</span>")
+		user.forceMove(src.loc)
+		user.dir = SOUTH
+
+/obj/structure/throne/attackby(obj/item/W as obj, mob/user as mob)
+	if(recharging)
+		return
+	if (istype(W, /obj/item/cypher))
+		var/obj/item/cypher/C = W
+		visible_message("<span class='warning'>\The [user] places \the [C] inside one of \the [src]'s sockets.</span>")
+		recharging = TRUE
+		addtimer(CALLBACK(src, .proc/rearm), 30 SECONDS)
+		if(!(C.first_part && C.second_part && C.third_part))
+			visible_message("<span class='warning'>\The [src]'s machinery clicks lowly.</span>")
+			return
+
+		var/failed = FALSE
+
+		if(C.first_code != "S'rendarr")
+			failed = TRUE
+
+		if(C.second_code != "Kazarrhaldiye")
+			failed = TRUE
+
+		if(C.third_code != "Aysaif")
+			failed = TRUE
+
+		if(C.fourth_code != "Raskara")
+			failed = TRUE
+
+		if(failed)
+			punish(user)
+		else
+			give_prize()
+
+
+/obj/structure/throne/proc/rearm()
+	src.visible_message("<span class='notice'>\The [src] hisses lowly.</span>")
+	recharging = FALSE
+
+/obj/structure/throne/proc/punish(mob/user)
+	var/selected_trap = pick(possible_traps)
+
+	switch(selected_trap)
+
+		if("fire")
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.adjust_fire_stacks(5)
+				H.IgniteMob()
+				visible_message("<span class='danger'>\The [src] engulfs \the [H] in a stream of fire!</span>")
+
+		if("radiation")
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_radiation(200)
+				visible_message("<span class='danger'>\The [src] emits a faint glow!</span>")
+
+		if("gas")
+			var/datum/reagents/R = new/datum/reagents(100)
+			R.my_atom = src
+			R.add_reagent(/datum/reagent/stone_dust,20)
+			var/datum/effect/effect/system/smoke_spread/chem/S = new /datum/effect/effect/system/smoke_spread/chem(/datum/reagent/stone_dust)
+			S.show_log = 0
+			S.set_up(R, 10, 0, src, 40)
+			S.start()
+			qdel(R)
+			visible_message("<span class='danger'>\The [src] releases a cloud of dust!</span>")
+
+		if("shock")
+			visible_message("<span class='danger'>\The [src] crackles with energy!</span>")
+
+			playsound(src, 'sound/magic/LightningShock.ogg', 75, 1)
+
+			tesla_zap(src, 7, 1500)
+
+		if("dards")
+			fragem(src,40,0,0,5,2,1)
+			visible_message("<span class='danger'>\The [src] spits pieces of metal everywhere!</span>")
+
+/obj/structure/throne/proc/give_prize()
+	if(gave_prize)
+		return
+	gave_prize = TRUE
+	visible_message("<span class='notice'>\The [src]'s machinery roars loudly and spits an object!</span>")
