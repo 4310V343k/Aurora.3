@@ -703,7 +703,15 @@
 		return
 	gave_prize = TRUE
 	visible_message("<span class='notice'>\The [src]'s machinery roars loudly and spits an object!</span>")
+	var/obj/item/adhomian_map/F = new/obj/item/adhomian_map(src.loc)
+	F.forceMove(src.loc)
 
+/obj/item/adhomian_map
+	name = "old map"
+	desc = "An old map framed with leather."
+	icon = 'icons/obj/badmoon.dmi'
+	icon_state = "map"
+	w_class = 3
 
 /obj/item/clothing/suit/storage/tajaran/raskara/armor
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
@@ -713,3 +721,123 @@
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
 	siemens_coefficient = 0
 
+/obj/item/clothing/suit/space/void/freelancer/badmoon
+	w_class = 3
+
+/obj/item/clothing/suit/space/void/freelancer/badmoon/taj/Initialize()
+	. = ..()
+	src.refit_for_species("Tajara")
+
+	var/obj/item/clothing/head/helmet/space/void/freelancer/F = new/obj/item/clothing/head/helmet/space/void/freelancer(src.loc)
+	F.refit_for_species("Tajara")
+
+
+/obj/item/society_gear
+	anchored = TRUE
+	alpha = 0
+	density = 0
+	mouse_opacity = 0
+
+/obj/item/society_gear/Initialize()
+	. = ..()
+	new/obj/item/storage/box/syndie_kit/armor (src.loc)
+	new/obj/item/clothing/suit/space/void/freelancer/badmoon/taj (src.loc)
+	new/obj/item/storage/belt/military (src.loc)
+	new/obj/item/gun/projectile/pistol/adhomai (src.loc)
+	new/obj/item/ammo_magazine/mc9mm (src.loc)
+	new/obj/item/ammo_magazine/mc9mm (src.loc)
+	new/obj/item/grenade/flashbang (src.loc)
+	new/obj/item/material/knife/trench (src.loc)
+	new/obj/item/grenade/empgrenade (src.loc)
+	new/obj/item/card/id/syndicate (src.loc)
+	new/obj/item/device/radio/headset/syndicate (src.loc)
+	QDEL_IN(src, 2)
+
+
+/obj/item/raskara_gear
+	anchored = TRUE
+	alpha = 0
+	density = 0
+	mouse_opacity = 0
+
+/obj/item/raskara_gear/Initialize()
+	. = ..()
+	new/obj/item/clothing/suit/storage/tajaran/raskara/armor (src.loc)
+	new/obj/item/clothing/head/tajaran/raskara/armor (src.loc)
+	new/obj/item/storage/belt/military (src.loc)
+	new/obj/item/gun/projectile/silenced (src.loc)
+	new/obj/item/ammo_magazine/c45m (src.loc)
+	new/obj/item/ammo_magazine/c45m (src.loc)
+	new/obj/item/grenade/flashbang (src.loc)
+	new/obj/item/material/knife/raskara (src.loc)
+	new/obj/item/grenade/empgrenade (src.loc)
+	new/obj/item/card/id/syndicate (src.loc)
+	new/obj/item/device/radio/headset/raider (src.loc)
+	QDEL_IN(src, 2)
+
+
+/obj/item/big_guns
+	anchored = TRUE
+	alpha = 0
+	density = 0
+	mouse_opacity = 0
+
+/obj/item/big_guns/Initialize()
+	. = ..()
+	new/obj/item/gun/projectile/automatic/rifle/adhomian (src.loc)
+	new/obj/item/storage/belt/military (src.loc)
+	new/obj/item/ammo_magazine/boltaction(src.loc)
+	new/obj/item/ammo_magazine/boltaction(src.loc)
+	new/obj/item/ammo_magazine/boltaction(src.loc)
+	QDEL_IN(src, 2)
+
+/obj/item/knight_gear
+	anchored = TRUE
+	alpha = 0
+	density = 0
+	mouse_opacity = 0
+
+/obj/item/knight_gear/Initialize()
+	. = ..()
+	new/obj/item/storage/belt/military (src.loc)
+	new/obj/item/gun/projectile/revolver/detective/knife (src.loc)
+	new/obj/item/ammo_magazine/c38 (src.loc)
+	new/obj/item/ammo_magazine/c38 (src.loc)
+	new/obj/item/card/id/syndicate (src.loc)
+	QDEL_IN(src, 2)
+
+/obj/item/real_knight_gear
+	anchored = TRUE
+	alpha = 0
+	density = 0
+	mouse_opacity = 0
+
+/obj/item/real_knight_gear/Initialize()
+	. = ..()
+	new/obj/item/clothing/suit/armor/cuirass/knight (src.loc)
+	new/obj/item/clothing/head/helmet/kettle/knight (src.loc)
+	new/obj/item/clothing/shoes/tajara/knight (src.loc)
+	new/obj/item/clothing/gloves/black/tajara/knight (src.loc)
+	new/obj/item/storage/belt/military (src.loc)
+	new/obj/item/gun/projectile/revolver/detective/knife (src.loc)
+	new/obj/item/ammo_magazine/c38 (src.loc)
+	new/obj/item/ammo_magazine/c38 (src.loc)
+	new/obj/item/grenade/flashbang (src.loc)
+	new/obj/item/material/knife/trench (src.loc)
+	new/obj/item/grenade/empgrenade (src.loc)
+	new/obj/item/card/id/syndicate (src.loc)
+	new/obj/item/device/radio/headset/burglar (src.loc)
+	QDEL_IN(src, 2)
+
+/obj/item/material/sword/sabre/knight
+	default_material = "meteoric iron"
+
+/obj/item/cane/shillelagh/knight/attack_self(var/mob/user)
+	var/obj/item/material/sword/sabre/knight/F = new/obj/item/material/sword/sabre/knight(src)
+	user.visible_message("<span class='warning'>[user] has unsheathed \a [F] from \his [src]!</span>", "You unsheathe \the [F] from \the [src].")
+	playsound(user.loc, 'sound/weapons/holster/sheathout.ogg', 50, 1)
+	user.drop_from_inventory(src)
+	user.put_in_hands(F)
+	user.update_inv_l_hand(0)
+	user.update_inv_r_hand()
+	qdel(src)

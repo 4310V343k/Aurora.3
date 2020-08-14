@@ -359,6 +359,10 @@
 	golem = "Steel Golem"
 	hitsound = 'sound/weapons/smash.ogg'
 
+/material/steel/star
+	name = "meteoric iron"
+	hardness = 100
+
 /material/diona
 	name = MATERIAL_DIONA
 	icon_colour = null
