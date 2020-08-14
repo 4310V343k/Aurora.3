@@ -703,3 +703,13 @@
 		return
 	gave_prize = TRUE
 	visible_message("<span class='notice'>\The [src]'s machinery roars loudly and spits an object!</span>")
+
+
+/obj/item/clothing/suit/storage/tajaran/raskara/armor
+	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
+	siemens_coefficient = 0
+
+/obj/item/clothing/head/tajaran/raskara/armor
+	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
+	siemens_coefficient = 0
+
