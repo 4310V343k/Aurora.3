@@ -644,7 +644,7 @@
 			var/obj/item/weldingtool/welder = W
 			if(welder.isOn())
 				visible_message("<span class='notice'>\The [user] starts to cut \the [src] from its base.</span>")
-				if(do_after(user, 150))
+				if(do_after(user, 75))
 					if(welder.remove_fuel(5,user))
 						visible_message("<span class='notice'>\The [user] cut \the [src] from its base.</span>")
 						anchored = FALSE
