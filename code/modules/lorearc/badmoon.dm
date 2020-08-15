@@ -717,7 +717,7 @@
 
 			playsound(src, 'sound/magic/LightningShock.ogg', 75, 1)
 
-			tesla_zap(src, 7, 1500)
+			tesla_zap(src, 7, 2000)
 
 		if("dards")
 			fragem(src,40,0,0,5,2,1)
@@ -727,7 +727,7 @@
 	if(gave_prize)
 		return
 	gave_prize = TRUE
-	visible_message("<span class='notice'>\The [src]'s machinery roars loudly and spits an object!</span>")
+	visible_message("<span class='notice'>\The [src]'s machinery roars loudly and spits out an object!</span>")
 	var/obj/item/adhomian_map/F = new/obj/item/adhomian_map(src.loc)
 	F.forceMove(src.loc)
 
@@ -736,7 +736,7 @@
 	desc = "An old map framed with leather."
 	icon = 'icons/obj/badmoon.dmi'
 	icon_state = "map"
-	w_class = 3
+	w_class = 4
 
 /obj/item/adhomian_map/examine(var/mob/user)
 	..()
@@ -781,6 +781,7 @@
 	new/obj/item/grenade/empgrenade (src.loc)
 	new/obj/item/card/id/syndicate (src.loc)
 	new/obj/item/device/radio/headset/syndicate (src.loc)
+	new/obj/item/device/camera (src.loc)
 	QDEL_IN(src, 2)
 
 
@@ -803,6 +804,7 @@
 	new/obj/item/grenade/empgrenade (src.loc)
 	new/obj/item/card/id/syndicate (src.loc)
 	new/obj/item/device/radio/headset/raider (src.loc)
+	new/obj/item/device/camera (src.loc)
 	QDEL_IN(src, 2)
 
 
@@ -816,6 +818,9 @@
 	. = ..()
 	new/obj/item/gun/projectile/automatic/rifle/adhomian (src.loc)
 	new/obj/item/storage/belt/military (src.loc)
+	new/obj/item/ammo_magazine/boltaction(src.loc)
+	new/obj/item/ammo_magazine/boltaction(src.loc)
+	new/obj/item/ammo_magazine/boltaction(src.loc)
 	new/obj/item/ammo_magazine/boltaction(src.loc)
 	new/obj/item/ammo_magazine/boltaction(src.loc)
 	new/obj/item/ammo_magazine/boltaction(src.loc)
