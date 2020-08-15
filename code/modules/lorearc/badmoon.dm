@@ -783,6 +783,7 @@
 	new/obj/item/card/id/syndicate (src.loc)
 	new/obj/item/device/radio/headset/syndicate (src.loc)
 	new/obj/item/device/camera (src.loc)
+	new/obj/item/weldingtool/hugetank (src.loc)
 	QDEL_IN(src, 2)
 
 
@@ -806,6 +807,7 @@
 	new/obj/item/card/id/syndicate (src.loc)
 	new/obj/item/device/radio/headset/raider (src.loc)
 	new/obj/item/device/camera (src.loc)
+	new/obj/item/weldingtool/hugetank (src.loc)
 	QDEL_IN(src, 2)
 
 
