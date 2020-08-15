@@ -594,6 +594,8 @@
 	item_state = "armored_arms"
 	siemens_coefficient = 0
 	contained_sprite = TRUE
+	body_parts_covered = HANDS|ARMS
+	punch_force = 5
 
 /obj/item/clothing/gloves/black/tajara/knight/master
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 10, bomb = 55, bio = 0, rad = 0)
@@ -612,17 +614,40 @@
 	var/gave_prize = FALSE
 	var/list/possible_traps = list("fire", "dards", "shock", "gas", "radiation")
 
+/obj/structure/throne/Initialize()
+	. = ..()
+	var/image/I = image(icon, "throne_over")
+	I.layer = MOB_LAYER + 0.1
+	add_overlay(I)
+
 /obj/structure/throne/ex_act(severity)
 	return
+
+/obj/structure/throne/examine(var/mob/user)
+	..()
+	if(anchored)
+		to_chat(user,("The throne is welded to its base. It can not be moved."))
 
 /obj/structure/throne/attack_hand(var/mob/user)
 	visible_message("<span class='notice'>\The [user] starts to climb on \the [src].</span>")
 	if(do_after(user, 5))
 		visible_message("<span class='notice'>\The [user] sits on \the [src].</span>")
 		user.forceMove(src.loc)
-		user.dir = SOUTH
+		user.dir = src.dir
+		if(prob(25))
+			if(istajara(user))
+				to_chat(user,"<span class='danger'>You feel a great weight upon your shoulders.</span> ")
 
 /obj/structure/throne/attackby(obj/item/W as obj, mob/user as mob)
+	if(W.iswelder())
+		if(anchored)
+			var/obj/item/weldingtool/welder = W
+			if(welder.isOn())
+				visible_message("<span class='notice'>\The [user] starts to cut \the [src] from its base.</span>")
+				if(do_after(user, 150))
+					if(welder.remove_fuel(5,user))
+						visible_message("<span class='notice'>\The [user] cut \the [src] from its base.</span>")
+						anchored = FALSE
 	if(recharging)
 		return
 	if (istype(W, /obj/item/cypher))
@@ -712,6 +737,11 @@
 	icon = 'icons/obj/badmoon.dmi'
 	icon_state = "map"
 	w_class = 3
+
+/obj/item/adhomian_map/examine(var/mob/user)
+	..()
+	if(istajara(user))
+		to_chat(user,"It appears to be from somewhere close to the Rhazar Mountains.")
 
 /obj/item/clothing/suit/storage/tajaran/raskara/armor
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 10, bomb = 55, bio = 0, rad = 0)
