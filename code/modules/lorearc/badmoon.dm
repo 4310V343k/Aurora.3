@@ -677,6 +677,7 @@
 			punish(user)
 		else
 			give_prize()
+			msg_admin_attack("[user.name] opened the throne. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)",ckey=key_name(user))
 
 
 /obj/structure/throne/proc/rearm()
